@@ -1,0 +1,10 @@
+Diberikan table student information sebagai berikut :
+
+Student		ID Student 		Name Course 	Course Instructor
+101			John			HTML			Mrs. Ayu
+102			Jane			CSS				Mrs. Amel
+103			Mary			Basic Go		Mr. Aldi
+104			SarahHandling 	Error			Mr. Safran
+105			David			REST API		Mr. Tugas
+
+Tugas Anda adalah Normalisasi tabel "Informasi Siswa" untuk memastikan efisiensi dan integritas data. Ikuti langkah-langkah normalisasi (1NF, 2NF, 3NF) untuk mencapai skema basis data yang optimal.
