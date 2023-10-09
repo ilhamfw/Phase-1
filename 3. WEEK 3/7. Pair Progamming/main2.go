@@ -102,15 +102,68 @@ func listGames(db *sql.DB) {
 
 func createGame(db *sql.DB) {
 	fmt.Println("------------[CREATE-GAME]-------------------------")
-	// Implementasikan logika untuk membuat game baru
+
+	// Minta input dari pengguna untuk data game baru
+	title := promptInput("Title: ")
+	description := promptInput("Description: ")
+	datePublish := promptInput("Date Publish (YYYY-MM-DD): ")
+	rating := promptInput("Rating: ")
+
+	// Query untuk menyisipkan game baru ke dalam database
+	_, err := db.Exec("INSERT INTO Game (title, description, date_publish, rating) VALUES (?, ?, ?, ?)", title, description, datePublish, rating)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Game berhasil dibuat!")
 }
+
 
 func updateGame(db *sql.DB) {
 	fmt.Println("------------[UPDATE-GAME]-------------------------")
-	// Implementasikan logika untuk mengupdate game
+
+	// Minta input ID game yang ingin diperbarui
+	gameID := promptInput("Game ID to update: ")
+
+	// Minta input dari pengguna untuk data yang diperbarui
+	title := promptInput("New Title: ")
+	description := promptInput("New Description: ")
+	datePublish := promptInput("New Date Publish (YYYY-MM-DD): ")
+	rating := promptInput("New Rating: ")
+
+	// Query untuk memperbarui game berdasarkan ID
+	_, err := db.Exec("UPDATE Game SET title=?, description=?, date_publish=?, rating=? WHERE gameID=?", title, description, datePublish, rating, gameID)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Game berhasil diperbarui!")
 }
+
 
 func deleteGame(db *sql.DB) {
 	fmt.Println("------------[DELETE-GAME]-------------------------")
-	// Implementasikan logika untuk menghapus game
+
+	// Minta input ID game yang ingin dihapus
+	gameID := promptInput("Game ID to delete: ")
+
+	// Query untuk menghapus game berdasarkan ID
+	_, err := db.Exec("DELETE FROM Game WHERE gameID=?", gameID)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Game berhasil dihapus!")
 }
+
+func promptInput(label string) string {
+	prompt := promptui.Prompt{
+		Label: label,
+	}
+	result, err := prompt.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
+	return result
+}
+
